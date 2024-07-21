@@ -2,16 +2,23 @@ let members = [];
 
 function loadDefaultMembers() {
     members = [
-        {"name": "Alice", "gender": "F", "availability": [true, true, true, true, true, true]},
-        {"name": "Bob", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "Charlie", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "David", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "Eve", "gender": "F", "availability": [true, true, true, true, true, true]},
-        {"name": "Frank", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "Grace", "gender": "F", "availability": [true, true, true, true, true, true]},
-        {"name": "Henry", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "Ivy", "gender": "F", "availability": [true, true, true, true, true, true]},
-        {"name": "Jack", "gender": "M", "availability": [true, true, true, true, true, true]}
+        {"name": "용", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "호경", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "Ck", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "찐", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "치폴레", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "성민", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "나기", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "효상", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "DK", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "쏘", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "호빵", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "마고커", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "치즈", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "조나단", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "차차", "gender": "F", "availability": [true, true, true, true, true, true]},
+        {"name": "최영준", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "황병인", "gender": "M", "availability": [true, true, true, true, true, true]},
     ];
     renderMembers();
 }
