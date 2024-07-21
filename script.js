@@ -18,7 +18,7 @@ function loadDefaultMembers() {
         {"name": "조나단", "gender": "M", "availability": [true, true, true, true, true, true]},
         {"name": "차차", "gender": "F", "availability": [true, true, true, true, true, true]},
         {"name": "최영준", "gender": "M", "availability": [true, true, true, true, true, true]},
-        {"name": "황병인", "gender": "M", "availability": [true, true, true, true, true, true]},
+        {"name": "하늘새", "gender": "M", "availability": [true, true, true, true, true, true]},
     ];
     renderMembers();
 }
