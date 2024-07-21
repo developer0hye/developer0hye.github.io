@@ -76,9 +76,10 @@ function generate_schedule(players) {
         schedule[i] = {1: [], 2: []};
     }
     let women_doubles_played = false;
+    let player_games = players.map(p => ({...p, games: 0}));
 
     for (let round_num = 1; round_num <= 6; round_num++) {
-        let available_players = players.filter(p => p.availability[round_num-1]);
+        let available_players = player_games.filter(p => p.availability[round_num-1]);
         shuffleArray(available_players);
         
         if (available_players.length < 8) {
@@ -92,6 +93,7 @@ function generate_schedule(players) {
             let court = Math.random() < 0.5 ? 1 : 2;
             schedule[round_num][court] = women_match;
             women_match.forEach(player => {
+                player.games++;
                 available_players = available_players.filter(p => p !== player);
             });
             women_doubles_played = true;
@@ -99,30 +101,39 @@ function generate_schedule(players) {
         
         for (let court = 1; court <= 2; court++) {
             if (!schedule[round_num][court].length && available_players.length >= 4) {
+                // 게임 수가 적은 선수를 우선 선택
+                available_players.sort((a, b) => a.games - b.games);
                 let match = available_players.slice(0, 4);
                 schedule[round_num][court] = match;
                 match.forEach(player => {
+                    player.games++;
                     available_players = available_players.filter(p => p !== player);
                 });
             }
         }
     }
     
-    if (!women_doubles_played) {
-        for (let round_num = 6; round_num >= 1; round_num--) {
-            let available_women = players.filter(p => p.gender === 'F' && p.availability[round_num-1]);
-            if (available_women.length >= 4) {
-                let women_match = available_women.slice(0, 4);
-                let court = Math.random() < 0.5 ? 1 : 2;
-                schedule[round_num][court] = women_match;
-                women_doubles_played = true;
-                break;
+    // 아직 경기를 하지 않은 선수가 있다면 마지막 라운드에 강제 배정
+    let unplayed_players = player_games.filter(p => p.games === 0);
+    if (unplayed_players.length > 0) {
+        for (let court = 1; court <= 2; court++) {
+            if (unplayed_players.length >= 4) {
+                let match = unplayed_players.slice(0, 4);
+                schedule[6][court] = match;
+                match.forEach(player => {
+                    player.games++;
+                    unplayed_players = unplayed_players.filter(p => p !== player);
+                });
             }
         }
     }
-    
+
     if (!women_doubles_played) {
         console.log("경고: 여성 복식 경기를 배정할 수 없었습니다.");
+    }
+
+    if (unplayed_players.length > 0) {
+        console.log("경고: 다음 선수들이 경기에 참여하지 못했습니다: " + unplayed_players.map(p => p.name).join(', '));
     }
 
     return schedule;
@@ -144,6 +155,18 @@ function renderSchedule(schedule) {
     }
     
     tableHTML += '</table>';
+    
+    // 각 선수의 게임 수 표시
+    tableHTML += '<h3>Player Game Counts:</h3><ul>';
+    members.forEach(player => {
+        const gameCount = schedule[1][1].concat(schedule[1][2], schedule[2][1], schedule[2][2],
+                                                schedule[3][1], schedule[3][2], schedule[4][1], schedule[4][2],
+                                                schedule[5][1], schedule[5][2], schedule[6][1], schedule[6][2])
+                                        .filter(p => p.name === player.name).length;
+        tableHTML += `<li>${player.name}: ${gameCount} games</li>`;
+    });
+    tableHTML += '</ul>';
+    
     scheduleDiv.innerHTML = tableHTML;
 }
 
